@@ -20,4 +20,22 @@
         android:name="az.zero.nsacoviddoctor.presentation.posts_fragment.PostsFragment"
         android:label="fragment_posts"
         tools:layout="@layout/fragment_posts" />
+    <fragment
+        android:id="@+id/checkFragment"
+        android:name="az.zero.nsacoviddoctor.presentation.check_symptom.CheckFragment"
+        android:label="fragment_check"
+        tools:layout="@layout/fragment_check" >
+        <action
+            android:id="@+id/action_checkFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="az.zero.nsacoviddoctor.presentation.result_fragment.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" >
+        <argument
+            android:name="resultData"
+            app:argType="az.zero.nsacoviddoctor.domain.model.result_data.ResultData" />
+    </fragment>
 </navigation>

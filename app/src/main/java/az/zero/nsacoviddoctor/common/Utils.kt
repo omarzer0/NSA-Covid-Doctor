@@ -1,11 +1,11 @@
 package az.zero.nsacoviddoctor.common
 
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.widget.ImageView
 import az.zero.nsacoviddoctor.R
+import az.zero.nsacoviddoctor.domain.model.result_data.ResultData
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
@@ -77,3 +77,24 @@ fun setImageUsingGlide(view: ImageView, imageUrl: String?) {
 }
 
 fun getLocation(context: Context) = context.resources.configuration.locale.country ?: ""
+
+fun getResultMessages(msg: String): ResultData {
+    return when (msg) {
+        "NORMAL" -> {
+            ResultData("You don't have Coronavirus", R.drawable.corona_free)
+        }
+        "PNEUMONIA" -> {
+            ResultData(
+                "You don't have Coronavirus, but you properly have pneumonia",
+                R.drawable.corona_free
+            )
+        }
+        "COVID" -> {
+            ResultData(
+                "Looks like you have Corona symptoms, please see a doctor! ",
+                R.drawable.have_corona
+            )
+        }
+        else -> throw Exception("message have a strange value")
+    }
+}

@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import az.zero.nsacoviddoctor.common.setImageUsingGlide
-import az.zero.nsacoviddoctor.databinding.ItemPostBinding
+import az.zero.nsacoviddoctor.databinding.ItemHomePostBinding
 import az.zero.nsacoviddoctor.domain.model.covid_post.CovidPost
 
-class PostAdapter :
-    ListAdapter<CovidPost, PostAdapter.PostViewHolder>(DiffCallback()) {
+class HomePostAdapter :
+    ListAdapter<CovidPost, HomePostAdapter.PostViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
-        val binding = ItemPostBinding.inflate(
+        val binding = ItemHomePostBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return PostViewHolder(binding)
@@ -24,7 +24,7 @@ class PostAdapter :
         holder.bind(currentItem)
     }
 
-    inner class PostViewHolder(private val binding: ItemPostBinding) :
+    inner class PostViewHolder(private val binding: ItemHomePostBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -41,10 +41,8 @@ class PostAdapter :
 
         fun bind(post: CovidPost) {
             binding.apply {
-                setImageUsingGlide(postImageIv, post.image)
-                postTitleTv.text = post.title
-                postDateTv.text = post.date
-                postTimeTv.text = post.time
+                setImageUsingGlide(prevItemIv, post.image)
+                prevItemTv.text = post.title
             }
         }
 

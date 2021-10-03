@@ -20,4 +20,10 @@
         android:title="News"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/checkFragment"
+        android:icon="@drawable/ic_heart"
+        android:title="Health"
+        app:showAsAction="always" />
+
 </menu>

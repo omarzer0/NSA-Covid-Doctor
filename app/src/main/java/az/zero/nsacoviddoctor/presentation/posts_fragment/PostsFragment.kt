@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import az.zero.nsacoviddoctor.R
+import az.zero.nsacoviddoctor.common.Resource
+import az.zero.nsacoviddoctor.common.logMe
 import az.zero.nsacoviddoctor.core.BaseFragment
 import az.zero.nsacoviddoctor.databinding.FragmentPostsBinding
 import az.zero.nsacoviddoctor.presentation.adapter.post_adapter.PostAdapter
@@ -29,12 +31,26 @@ class PostsFragment : BaseFragment(R.layout.fragment_posts) {
         }
 
         postAdapter.setOnPostClickListener {
-//            openBrowser(it.url)
+            openBrowser(it.link)
         }
 
-        viewModel.covidPostsLiveData.observe(viewLifecycleOwner) {
-            val postList = it.data
-            postAdapter.submitList(postList)
+        viewModel.covidPostsLiveData.observe(viewLifecycleOwner) { covidData ->
+            when (covidData) {
+                is Resource.Error -> {
+                    logMe(covidData.message ?: "viewModel.covidPostsLiveData.observe")
+                    toastMy("Check internet connection")
+                    binding.spinKitPb.visibility = View.GONE
+                }
+                is Resource.Loading -> {
+                    binding.spinKitPb.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    covidData.data?.data.let {
+                        postAdapter.submitList(it)
+                    }
+                    binding.spinKitPb.visibility = View.GONE
+                }
+            }
         }
 
     }
