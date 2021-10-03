@@ -32,6 +32,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             openBrowser(it.link)
         }
 
+        binding.seeGuidelinesBtn.setOnClickListener {
+            openBrowser("http://space-app.spider-te8.com/guidelines")
+        }
+
         viewModel.covidPostsLiveData.observe(viewLifecycleOwner) { covidData ->
             when (covidData) {
                 is Resource.Error -> {
