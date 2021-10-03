@@ -1,4 +1,24 @@
 <resources>
     <string name="app_name">NSA Covid Doctor</string>
     <string name="error">Something went wrong, please try again later</string>
+    <string name="description_of_home">If you feel sick with any of covid-19 symptoms please stay in home and get help.</string>
+    <string name="prevention">Prevention</string>
+    <string name="choose_image">choose image</string>
+    <string name="guide_lines">See guide lines</string>
+    <string name="are_you_feeling_sick">Are you feeling sick?</string>
+    <string name="nasa_covid_doctor">Nasa Covid Doctor</string>
+    <string name="prev1_title">please see doctor</string>
+    <string name="prev2_title">Take the vaccine</string>
+    <string name="prev3_title">Be careful of yourself</string>
+    <string name="prev4_title">Don\'t shake hands</string>
+    <string name="prev5_title">Sneeze into your wrist</string>
+    <string name="prev6_title">Use the internet to communicate</string>
+    <string name="prev7_title">feel symptoms stay at home</string>
+    <string name="useful_posts_for_you">Useful posts for you</string>
+    <string name="try_to_make_test">try to make test</string>
+    <string name="image">image</string>
+    <string name="statistics">Statistics</string>
+    <string name="we_are_here">We can examine your X-Ray chest image to detect Covid symptoms if exist. Don\'t worry we will take care of everything, it might just take a minute and half so be patient and we are here for. </string>
+    <string name="let_s_examine_you">Let\'s examine you</string>
+    <string name="check_me">Check me</string>
 </resources>

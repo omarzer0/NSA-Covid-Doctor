@@ -1,16 +1,23 @@
 package az.zero.nsacoviddoctor.common
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
+import android.widget.ImageView
 import az.zero.nsacoviddoctor.R
+import az.zero.nsacoviddoctor.domain.model.result_data.ResultData
+import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 import es.dmoral.toasty.Toasty
-import gun0912.tedimagepicker.builder.TedImagePicker
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 
 
 fun logMe(msg: String, tag: String = "TAG") {
-    val showLog = true
+    val showLog = IS_DEBUG
     if (!showLog) return
     Log.e(tag, msg)
 }
@@ -21,7 +28,7 @@ fun toastMy(
     success: Boolean = false,
     hideInRelease: Boolean = false
 ) {
-    if (hideInRelease) return
+    if (hideInRelease && !IS_DEBUG) return
     if (success) {
         Toasty.success(
             context, message, Toasty.LENGTH_SHORT, true
@@ -33,7 +40,18 @@ fun toastMy(
     }
 }
 
-fun loadImage(): ShimmerDrawable {
+fun getImageAsMultipartBodyPart(
+    context: Context?,
+    uri: Uri,
+    name: String
+): MultipartBody.Part {
+    val path: String = RealPathUtil.getRealPath(context, uri)
+    val file = File(path)
+    val reqFileSelect = file.asRequestBody("image/*".toMediaTypeOrNull())
+    return MultipartBody.Part.createFormData(name, file.name, reqFileSelect)
+}
+
+fun getShimmerDrawable(): ShimmerDrawable {
     val shimmer =
         Shimmer.AlphaHighlightBuilder()
             .setDuration(1800)
@@ -48,16 +66,35 @@ fun loadImage(): ShimmerDrawable {
     }
 }
 
-fun pickImage(profile: Boolean, context: Context) {
-    TedImagePicker.with(context)
-        .title("Choose image")
-        .backButton(R.drawable.ic_arrow_back_black_24dp)
-        .showCameraTile(true)
-        .buttonBackground(R.drawable.btn_done_button)
-        .buttonTextColor(R.color.white)
-        .buttonText("Choose image")
-        .errorListener { throwable -> logMe(throwable.localizedMessage ?: "pickImage") }
-        .start { uri ->
-            // TODO add it to fragment
+fun setImageUsingGlide(view: ImageView, imageUrl: String?) {
+    val context = view.context
+    val shimmerDrawable = getShimmerDrawable()
+    Glide.with(context)
+        .load(imageUrl)
+        .placeholder(shimmerDrawable)
+        .error(R.drawable.ic_no_image)
+        .into(view)
+}
+
+fun getLocation(context: Context) = context.resources.configuration.locale.country ?: ""
+
+fun getResultMessages(msg: String): ResultData {
+    return when (msg) {
+        "NORMAL" -> {
+            ResultData("You don't have Coronavirus", R.drawable.corona_free)
         }
+        "PNEUMONIA" -> {
+            ResultData(
+                "You don't have Coronavirus, but you properly have pneumonia",
+                R.drawable.corona_free
+            )
+        }
+        "COVID" -> {
+            ResultData(
+                "Looks like you have Corona symptoms, please see a doctor! ",
+                R.drawable.have_corona
+            )
+        }
+        else -> throw Exception("message have a strange value")
+    }
 }
