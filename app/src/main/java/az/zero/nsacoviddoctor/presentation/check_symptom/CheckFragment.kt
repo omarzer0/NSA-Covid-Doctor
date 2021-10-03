@@ -4,11 +4,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import az.zero.nsacoviddoctor.R
-import az.zero.nsacoviddoctor.common.IMAGE_MULTI_PART_KEY
-import az.zero.nsacoviddoctor.common.Resource
-import az.zero.nsacoviddoctor.common.getImageAsMultipartBodyPart
-import az.zero.nsacoviddoctor.common.logMe
+import az.zero.nsacoviddoctor.common.*
 import az.zero.nsacoviddoctor.core.BaseFragment
 import az.zero.nsacoviddoctor.databinding.FragmentCheckBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,8 +48,13 @@ class CheckFragment : BaseFragment(R.layout.fragment_check) {
                 }
                 is Resource.Success -> {
                     binding.spinKitPb.visibility = View.GONE
-                    val x = aiModelData.data?.data
-                    logMe("$x")
+                    val result = aiModelData.data?.data
+                    logMe("$result")
+                    val resultData = getResultMessages(result ?: "NORMAL")
+                    val action =
+                        CheckFragmentDirections.actionCheckFragmentToResultFragment(resultData)
+
+                    findNavController().navigate(action)
                 }
             }
         }

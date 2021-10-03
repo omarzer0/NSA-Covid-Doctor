@@ -50,11 +50,11 @@ class StatisticsFragment : BaseFragment(R.layout.fragment_statistics) {
         }
 
         val listPie: List<PieEntry> = listOf(
-            PieEntry(500f, "2010"),
-            PieEntry(500f, "2010"),
-            PieEntry(500f, "2010"),
-            PieEntry(500f, "2010"),
-            PieEntry(500f, "2010"),
+            PieEntry(900f, "Affected"),
+            PieEntry(714f, "Death"),
+            PieEntry(399f, "Recovered"),
+            PieEntry(640f, "Active"),
+            PieEntry(270f, "Serious"),
         )
         val pieChart = binding.barChart
         val pieDataSet = PieDataSet(listPie, "test")
