@@ -15,7 +15,7 @@
         android:layout_marginTop="@dimen/_25sdp"
         android:text="@string/nasa_covid_doctor"
         android:textColor="@color/white"
-        android:textSize="@dimen/_14ssp"
+        android:textSize="@dimen/_16ssp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

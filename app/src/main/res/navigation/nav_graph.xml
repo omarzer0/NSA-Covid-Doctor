@@ -15,4 +15,9 @@
         android:name="az.zero.nsacoviddoctor.presentation.statistics_fragment.StatisticsFragment"
         android:label="fragment_statistics"
         tools:layout="@layout/fragment_statistics" />
+    <fragment
+        android:id="@+id/postsFragment"
+        android:name="az.zero.nsacoviddoctor.presentation.posts_fragment.PostsFragment"
+        android:label="fragment_posts"
+        tools:layout="@layout/fragment_posts" />
 </navigation>

@@ -23,11 +23,9 @@ class StatisticsFragment : BaseFragment(R.layout.fragment_statistics) {
         binding = FragmentStatisticsBinding.bind(view)
 
         val x = getLocation(requireContext()).lowercase()
-        toastMy("$x", true)
 
         viewModel.getCovidInfo(x)
         viewModel.covidInfoLiveData.observe(viewLifecycleOwner) { covidInfo ->
-            logMe("$covidInfo")
             setDataToViews(covidInfo)
         }
 

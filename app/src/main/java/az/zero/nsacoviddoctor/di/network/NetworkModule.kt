@@ -1,8 +1,8 @@
 package az.zero.nsacoviddoctor.di.network
 
-import android.app.Application
 import androidx.databinding.library.BuildConfig
-import az.zero.nsacoviddoctor.common.BASE_URL
+import az.zero.nsacoviddoctor.common.CORONA_BASE_URL
+import az.zero.nsacoviddoctor.common.POSTS_BASE_URL
 import az.zero.nsacoviddoctor.data.data_source.network.CovidApi
 import az.zero.nsacoviddoctor.data.repository.CovidRepositoryImpl
 import az.zero.nsacoviddoctor.domain.repository.CovidRepository
@@ -15,6 +15,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 
@@ -42,18 +43,35 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(
+    @Named("provideRetrofitForCovidInfo")
+    fun provideRetrofitForCovidInfo(
         okHttpClient: OkHttpClient
-    ): CovidApi = Retrofit.Builder()
-        .baseUrl(BASE_URL)
+    ): Retrofit = Retrofit.Builder()
+        .baseUrl(CORONA_BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-        .create(CovidApi::class.java)
+
+//    @Provides
+//    @Singleton
+//    @Named("provideRetrofitPostsAndAIModel")
+//    fun provideRetrofitPostsAndAIModel(
+//        okHttpClient: OkHttpClient
+//    ): Retrofit = Retrofit.Builder()
+//        .baseUrl(CORONA_BASE_URL)
+//        .client(okHttpClient)
+//        .addConverterFactory(GsonConverterFactory.create())
+//        .build()
+
+    @Provides
+    @Singleton
+    fun provideCovidApi(@Named("provideRetrofitForCovidInfo") retrofit: Retrofit): CovidApi =
+        retrofit.create(CovidApi::class.java)
 
 
     @Provides
     @Singleton
     fun provideCovidRepository(api: CovidApi): CovidRepository = CovidRepositoryImpl(api)
+
 
 }

@@ -14,4 +14,10 @@
         android:title="Statistics"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/postsFragment"
+        android:icon="@drawable/ic_news"
+        android:title="News"
+        app:showAsAction="always" />
+
 </menu>

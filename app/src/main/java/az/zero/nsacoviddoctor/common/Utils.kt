@@ -1,9 +1,11 @@
 package az.zero.nsacoviddoctor.common
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.widget.ImageView
+import az.zero.nsacoviddoctor.R
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
@@ -70,7 +72,7 @@ fun setImageUsingGlide(view: ImageView, imageUrl: String?) {
     Glide.with(context)
         .load(imageUrl)
         .placeholder(shimmerDrawable)
-        .error(shimmerDrawable)
+        .error(R.drawable.ic_no_image)
         .into(view)
 }
 

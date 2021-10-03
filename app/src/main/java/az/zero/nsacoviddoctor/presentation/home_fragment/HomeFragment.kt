@@ -6,12 +6,10 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import az.zero.nsacoviddoctor.R
-import az.zero.nsacoviddoctor.common.getLocation
-import az.zero.nsacoviddoctor.common.logMe
 import az.zero.nsacoviddoctor.core.BaseFragment
 import az.zero.nsacoviddoctor.databinding.FragmentHomeBinding
 import az.zero.nsacoviddoctor.domain.model.data_adapter.PreventionData
-import az.zero.nsacoviddoctor.presentation.adapter.PrevHomeAdapter
+import az.zero.nsacoviddoctor.presentation.adapter.prev_adapter.PrevHomeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 

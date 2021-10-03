@@ -14,7 +14,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
-        android:theme="@style/Theme.NSACovidDoctor">
+        android:theme="@style/Theme.NSACovidDoctor"
+        android:usesCleartextTraffic="true"
+        >
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true">

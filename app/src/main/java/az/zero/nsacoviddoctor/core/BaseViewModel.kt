@@ -27,11 +27,11 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         viewModelScope.launch(Dispatchers.Main) {
-            toastMy(
-                application, "${throwable.localizedMessage} exceptionHandler",
-                success = false,
-                hideInRelease = true
-            )
+//            toastMy(
+//                application, "${throwable.localizedMessage} exceptionHandler",
+//                success = false,
+//                hideInRelease = true
+//            )
             _status.value =
                 Event(ResponseState.Error(application.getString(R.string.error)))
         }

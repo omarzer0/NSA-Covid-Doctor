@@ -1,4 +1,4 @@
-package az.zero.nsacoviddoctor.presentation.adapter
+package az.zero.nsacoviddoctor.presentation.adapter.prev_adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
