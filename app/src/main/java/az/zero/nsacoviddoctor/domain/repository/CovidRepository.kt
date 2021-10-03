@@ -1,7 +1,9 @@
 package az.zero.nsacoviddoctor.domain.repository
 
+import az.zero.nsacoviddoctor.domain.model.covid_info.CovidInfo
+
 interface CovidRepository {
 
-    fun getFakeTest(): List<String>
+    suspend fun getCovidInfo(country:String): CovidInfo
 
 }

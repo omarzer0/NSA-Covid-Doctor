@@ -1,4 +1,4 @@
-package az.zero.nsacoviddoctor.data.data_adapter
+package az.zero.nsacoviddoctor.domain.model.data_adapter
 
 data class PreventionData(
     var preventionImage:Int = 0,

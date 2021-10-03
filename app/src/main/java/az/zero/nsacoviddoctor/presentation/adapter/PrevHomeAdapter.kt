@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import az.zero.nsacoviddoctor.R
-import az.zero.nsacoviddoctor.data.data_adapter.PreventionData
+import az.zero.nsacoviddoctor.domain.model.data_adapter.PreventionData
 
 class PrevHomeAdapter(
     private val preventionData: List<PreventionData>,

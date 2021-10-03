@@ -1,4 +1,4 @@
-package az.zero.nsacoviddoctor.presentation.home_fragment
+package az.zero.nsacoviddoctor.presentation.statistics_fragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,10 +11,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class StatisticsViewModel @Inject constructor(
     private val repository: CovidRepositoryImpl
 ) : BaseViewModel() {
 
+    private val covidInfoMutableLiveData = MutableLiveData<CovidInfo>()
+    val covidInfoLiveData: LiveData<CovidInfo>
+        get() = covidInfoMutableLiveData
 
+    fun getCovidInfo(country: String) = viewModelScope.launch {
+        covidInfoMutableLiveData.value = repository.getCovidInfo(country)
+    }
 
 }
