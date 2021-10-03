@@ -4,7 +4,7 @@
     <string name="description_of_home">If you feel sick with any of covid-19 symptoms please stay in home and get help.</string>
     <string name="prevention">Prevention</string>
     <string name="choose_image">choose image</string>
-    <string name="guide_lines">see guide lines</string>
+    <string name="guide_lines">See guide lines</string>
     <string name="are_you_feeling_sick">Are you feeling sick?</string>
     <string name="nasa_covid_doctor">Nasa Covid Doctor</string>
     <string name="prev1_title">please see doctor</string>
@@ -15,4 +15,7 @@
     <string name="prev6_title">Use the internet to communicate</string>
     <string name="prev7_title">feel symptoms stay at home</string>
     <string name="useful_posts_for_you">Useful posts for you</string>
+    <string name="try_to_make_test">try to make test</string>
+    <string name="image">image</string>
+    <string name="statistics">Statistics</string>
 </resources>

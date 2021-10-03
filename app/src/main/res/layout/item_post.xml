@@ -39,7 +39,7 @@
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/post_image_iv"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="source" />
+            android:text="Covid-19" />
 
         <TextView
             android:id="@+id/post_title_tv"

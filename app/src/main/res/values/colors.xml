@@ -10,6 +10,7 @@
 
     <color name="mainColor">@color/purple_700</color>
     <color name="secondaryColor">@color/white</color>
+    <color name="secondaryTextColor">@color/txt_white_gray</color>
     <color name="yellow">#FFEB3B</color>
     <color name="red">#FFFF0000</color>
 </resources>

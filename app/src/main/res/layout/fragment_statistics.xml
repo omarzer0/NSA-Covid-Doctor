@@ -13,13 +13,24 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_25sdp"
-        android:text="@string/nasa_covid_doctor"
+        android:text="@string/statistics"
         android:textColor="@color/white"
         android:textSize="@dimen/_16ssp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <ImageView
+        android:id="@+id/country_image_iv"
+        android:layout_width="@dimen/_18sdp"
+        android:layout_height="@dimen/_18sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        tools:src="@tools:sample/avatars" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"

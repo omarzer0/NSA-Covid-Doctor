@@ -13,113 +13,105 @@
         android:layout_width="match_parent"
         android:layout_height="0dp">
 
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/top_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-30dp"
-            app:cardCornerRadius="35dp"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints">
+            android:background="@drawable/shape_rounded_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/top_card"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:background="@color/mainColor"
-                tools:ignore="MissingConstraints">
+            <TextView
+                android:id="@+id/covid_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:text="@string/nasa_covid_doctor"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/covid_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginTop="60dp"
-                    android:layout_marginEnd="288dp"
-                    android:text="@string/nasa_covid_doctor"
-                    android:textColor="@color/white"
-                    android:textSize="25sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/are_you_feeling_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:text="@string/are_you_feeling_sick"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/covid_tv" />
 
-                <TextView
-                    android:id="@+id/are_you_feeling_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginTop="40dp"
-                    android:text="@string/are_you_feeling_sick"
-                    android:textColor="@color/white"
-                    android:textSize="19sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/covid_tv"
+            <TextView
+                android:id="@+id/description_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_12sdp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@string/description_of_home"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/are_you_feeling_tv" />
 
-                    />
-
-                <TextView
-                    android:id="@+id/description_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:maxEms="20"
-                    android:text="@string/description_of_home"
-                    android:textColor="#CACACA"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/are_you_feeling_tv" />
-
-                <Button
-                    android:id="@+id/see_guidelines_btn"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="28dp"
-                    android:layout_marginEnd="284dp"
-                    android:layout_marginBottom="252dp"
-                    android:text="@string/guide_lines"
-                    android:textColor="@color/purple_200"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </androidx.cardview.widget.CardView>
+            <Button
+                android:id="@+id/see_guidelines_btn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_12sdp"
+                android:text="@string/guide_lines"
+                android:textAllCaps="false"
+                android:textColor="@color/secondaryTextColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description_tv" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <TextView
             android:id="@+id/prevention_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_25sdp"
             android:text="@string/prevention"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView"
-            tools:ignore="MissingConstraints,NotSibling" />
+            app:layout_constraintTop_toBottomOf="@+id/top_card" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/prevention_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/prevention_tv"
-            tools:ignore="MissingConstraints" />
+            tools:itemCount="20"
+            tools:listitem="@layout/prevention_list_item" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="15dp"
-            app:cardCornerRadius="28dp"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_margin="@dimen/_12sdp"
+            app:cardCornerRadius="@dimen/_12sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/prevention_rv"
-            tools:ignore="MissingConstraints">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/prevention_rv">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -134,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="70dp"
-                android:text="try to make test"
+                android:text="@string/try_to_make_test"
                 android:textColor="@color/purple_700"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>

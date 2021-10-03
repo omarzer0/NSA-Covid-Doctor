@@ -29,8 +29,7 @@ class PostsFragment : BaseFragment(R.layout.fragment_posts) {
         }
 
         postAdapter.setOnPostClickListener {
-            toastMy("$it",true)
-            openBrowser(it.title)
+//            openBrowser(it.url)
         }
 
         viewModel.covidPostsLiveData.observe(viewLifecycleOwner) {

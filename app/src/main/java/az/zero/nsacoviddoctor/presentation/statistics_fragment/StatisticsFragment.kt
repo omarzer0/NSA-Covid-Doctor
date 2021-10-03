@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import az.zero.nsacoviddoctor.R
 import az.zero.nsacoviddoctor.common.getLocation
-import az.zero.nsacoviddoctor.common.logMe
+import az.zero.nsacoviddoctor.common.setImageUsingGlide
 import az.zero.nsacoviddoctor.core.BaseFragment
 import az.zero.nsacoviddoctor.databinding.FragmentStatisticsBinding
 import az.zero.nsacoviddoctor.domain.model.covid_info.CovidInfo
@@ -38,6 +38,7 @@ class StatisticsFragment : BaseFragment(R.layout.fragment_statistics) {
             recoveredNumbersTv.text = covidInfo.recovered.toString()
             activeNumbersTv.text = covidInfo.active.toString()
             seriousNumbersTv.text = covidInfo.critical.toString()
+            setImageUsingGlide(countryImageIv, covidInfo.countryInfo.flag)
         }
     }
 }
