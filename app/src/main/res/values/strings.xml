@@ -18,4 +18,7 @@
     <string name="try_to_make_test">try to make test</string>
     <string name="image">image</string>
     <string name="statistics">Statistics</string>
+    <string name="we_are_here">We can examine your X-Ray chest image to detect Covid symptoms if exist. Don\'t worry we will take care of everything, it might just take a minute and half so be patient and we are here for. </string>
+    <string name="let_s_examine_you">Let\'s examine you</string>
+    <string name="check_me">Check me</string>
 </resources>

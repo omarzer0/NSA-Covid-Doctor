@@ -24,7 +24,7 @@ class PrevHomeAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         var layoutInflater = LayoutInflater.from(parent.context)
         var view =
-            layoutInflater.inflate(R.layout.prevention_list_item, parent, false)
+            layoutInflater.inflate(R.layout.item_home_post, parent, false)
         return HomeViewHolder(view)
     }
 

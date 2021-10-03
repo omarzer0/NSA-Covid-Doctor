@@ -20,4 +20,9 @@
         android:name="az.zero.nsacoviddoctor.presentation.posts_fragment.PostsFragment"
         android:label="fragment_posts"
         tools:layout="@layout/fragment_posts" />
+    <fragment
+        android:id="@+id/checkFragment"
+        android:name="az.zero.nsacoviddoctor.presentation.check_symptom.CheckFragment"
+        android:label="fragment_check"
+        tools:layout="@layout/fragment_check" />
 </navigation>

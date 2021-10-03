@@ -2,7 +2,6 @@ package az.zero.nsacoviddoctor.di.network
 
 import androidx.databinding.library.BuildConfig
 import az.zero.nsacoviddoctor.common.CORONA_BASE_URL
-import az.zero.nsacoviddoctor.common.POSTS_BASE_URL
 import az.zero.nsacoviddoctor.data.data_source.network.CovidApi
 import az.zero.nsacoviddoctor.data.repository.CovidRepositoryImpl
 import az.zero.nsacoviddoctor.domain.repository.CovidRepository

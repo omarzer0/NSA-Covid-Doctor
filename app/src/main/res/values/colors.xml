@@ -13,4 +13,5 @@
     <color name="secondaryTextColor">@color/txt_white_gray</color>
     <color name="yellow">#FFEB3B</color>
     <color name="red">#FFFF0000</color>
+    <color name="spin_kit_color">#FFFF0000</color>
 </resources>
