@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_80sdp"
+    android:layout_marginStart="@dimen/_12sdp"
+    android:layout_marginTop="@dimen/_12sdp"
+    android:layout_marginEnd="@dimen/_12sdp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/post_image_iv"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+
+        <TextView
+            android:id="@+id/post_source_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/holo_green_light"
+            android:text="Covid-19"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/post_image_iv"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/post_title_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center|start"
+            android:maxLines="2"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/post_time_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/post_image_iv"
+            app:layout_constraintTop_toBottomOf="@+id/post_source_tv"
+            tools:text="title" />
+
+
+        <TextView
+            android:id="@+id/post_date_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_6sdp"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/post_source_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/post_source_tv"
+            app:layout_constraintTop_toTopOf="@+id/post_source_tv"
+            tools:text="2020-10-11" />
+
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/imageView"-->
+        <!--            android:layout_width="16dp"-->
+        <!--            android:layout_height="16dp"-->
+        <!--            android:layout_marginBottom="8dp"-->
+        <!--            android:src="@drawable/ic_edit"-->
+        <!--            android:visibility="invisible"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/post_source_tv" />-->
+
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/post_author_tv"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginEnd="8dp"-->
+        <!--            android:ellipsize="end"-->
+        <!--            android:ems="1"-->
+        <!--            android:maxLines="1"-->
+        <!--            android:textColor="@android:color/black"-->
+        <!--            android:textSize="12sp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/imageView"-->
+        <!--            app:layout_constraintEnd_toStartOf="@+id/post_time_tv"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/imageView"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/imageView"-->
+        <!--            tools:text="author" />-->
+
+        <TextView
+            android:id="@+id/post_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_6sdp"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="12:00" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

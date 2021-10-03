@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainColor"
     tools:context=".presentation.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
@@ -22,10 +23,12 @@
         android:id="@+id/bottomNavBar"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        app:backgroundColor="@color/purple_700"
+        app:textSize="@dimen/_6ssp"
+        app:backgroundColor="@color/mainColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_bottom" />
+        app:menu="@menu/menu_bottom"
+        tools:ignore="MissingClass" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
