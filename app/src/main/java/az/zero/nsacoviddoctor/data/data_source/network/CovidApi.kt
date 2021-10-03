@@ -25,7 +25,7 @@ interface CovidApi {
     @Multipart
     @POST("${AI_MODEL_BASE_URL}upload")
     suspend fun getAIModelData(
-        @Part image: MultipartBody.Part
+        @Part img: MultipartBody.Part
     ): Response<AIModelData>
 
 

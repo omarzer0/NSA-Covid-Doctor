@@ -24,14 +24,21 @@ class CheckViewModel @Inject constructor(
 
     fun getAIModelData(image: MultipartBody.Part) = viewModelScope.launch {
         try {
+            aiModelDataMutableLiveData.value = Resource.Loading()
+            logMe("entered")
             val call = repository.getAIModelData(image)
+            logMe("entered under")
             if (call.isSuccessful) {
                 call.body()?.let { aiModelData ->
                     aiModelDataMutableLiveData.value = Resource.Success(aiModelData)
+                    logMe("successful")
                 }
+            } else {
+                aiModelDataMutableLiveData.value = Resource.Error(call.message() ?: "Unknown error")
             }
 
         } catch (e: Exception) {
+            logMe("entered")
             logMe(e.localizedMessage ?: "Unknown")
             aiModelDataMutableLiveData.value =
                 Resource.Error(e.localizedMessage ?: "Unknown error")

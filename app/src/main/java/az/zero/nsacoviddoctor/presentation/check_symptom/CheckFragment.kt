@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import az.zero.nsacoviddoctor.R
+import az.zero.nsacoviddoctor.common.IMAGE_MULTI_PART_KEY
 import az.zero.nsacoviddoctor.common.Resource
 import az.zero.nsacoviddoctor.common.getImageAsMultipartBodyPart
 import az.zero.nsacoviddoctor.common.logMe
-import az.zero.nsacoviddoctor.common.setImageUsingGlide
 import az.zero.nsacoviddoctor.core.BaseFragment
 import az.zero.nsacoviddoctor.databinding.FragmentCheckBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,9 +28,12 @@ class CheckFragment : BaseFragment(R.layout.fragment_check) {
             pickImage {
                 uri = it
                 uri?.let { imageUri ->
-                    val multiPart = getImageAsMultipartBodyPart(requireContext(), imageUri, "image")
+                    val multiPart = getImageAsMultipartBodyPart(
+                        requireContext(),
+                        imageUri,
+                        IMAGE_MULTI_PART_KEY
+                    )
                     viewModel.getAIModelData(multiPart)
-                    setImageUsingGlide(binding.imageView2, imageUri.toString())
                 }
             }
         }
@@ -39,7 +42,7 @@ class CheckFragment : BaseFragment(R.layout.fragment_check) {
             when (aiModelData) {
                 is Resource.Error -> {
                     logMe(aiModelData.message ?: "viewModel.covidPostsLiveData.observe")
-                    toastMy("something went wrong please check internet connection and try again")
+                    toastMy("something went wrong please try again")
                     binding.spinKitPb.visibility = View.GONE
                 }
                 is Resource.Loading -> {
