@@ -37,22 +37,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         }
 
         viewModel.covidPostsLiveData.observe(viewLifecycleOwner) { covidData ->
-            when (covidData) {
-                is Resource.Error -> {
-                    logMe(covidData.message ?: "viewModel.covidPostsLiveData.observe")
-                    toastMy("Check internet connection")
-                    binding.spinKitPb.visibility = View.GONE
-                }
-                is Resource.Loading -> {
-                    binding.spinKitPb.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    covidData.data?.data.let {
-                        homeAdapter.submitList(it)
-                    }
-                    binding.spinKitPb.visibility = View.GONE
-                }
-            }
+            logMe("${covidData.data} \n\n ${covidData.msg}")
+            homeAdapter.submitList(covidData.data)
         }
 
     }

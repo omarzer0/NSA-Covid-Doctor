@@ -2,6 +2,7 @@ package az.zero.nsacoviddoctor.data.data_source.network
 
 import az.zero.nsacoviddoctor.common.AI_MODEL_BASE_URL
 import az.zero.nsacoviddoctor.common.POSTS_BASE_URL
+import az.zero.nsacoviddoctor.common.Resource
 import az.zero.nsacoviddoctor.domain.model.ai_model_data.AIModelData
 import az.zero.nsacoviddoctor.domain.model.covid_info.CovidInfo
 import az.zero.nsacoviddoctor.domain.model.covid_post.CovidData

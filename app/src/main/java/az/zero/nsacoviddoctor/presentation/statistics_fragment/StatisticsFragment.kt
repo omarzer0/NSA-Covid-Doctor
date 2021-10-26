@@ -33,20 +33,7 @@ class StatisticsFragment : BaseFragment(R.layout.fragment_statistics) {
 
         viewModel.getCovidInfo(x)
         viewModel.covidInfoLiveData.observe(viewLifecycleOwner) { covidInfo ->
-            when (covidInfo) {
-                is Resource.Error -> {
-                    logMe(covidInfo.message ?: "viewModel.covidPostsLiveData.observe")
-                    toastMy("Check internet connection")
-                    binding.spinKitPb.visibility = View.GONE
-                }
-                is Resource.Loading -> {
-                    binding.spinKitPb.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    setDataToViews(covidInfo.data)
-                    binding.spinKitPb.visibility = View.GONE
-                }
-            }
+            setDataToViews(covidInfo)
         }
 
         val listPie: List<PieEntry> = listOf(
