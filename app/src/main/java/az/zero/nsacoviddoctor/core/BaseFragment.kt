@@ -10,16 +10,21 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import az.zero.nsacoviddoctor.R
 import az.zero.nsacoviddoctor.common.IS_DEBUG
+import az.zero.nsacoviddoctor.common.ProgressUtil
+import az.zero.nsacoviddoctor.common.Status
 import az.zero.nsacoviddoctor.common.logMe
-import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 import gun0912.tedimagepicker.builder.TedImagePicker
 import kotlinx.coroutines.flow.collect
+import javax.inject.Inject
 
-@AndroidEntryPoint
 abstract class BaseFragment(layout: Int) : Fragment(layout) {
 
     abstract val viewModel: BaseViewModel
+
+    @Inject
+    lateinit var progressUtil: ProgressUtil
+
 
     fun pickImage(action: (Uri) -> Unit) {
         TedImagePicker.with(requireContext())
@@ -57,7 +62,8 @@ abstract class BaseFragment(layout: Int) : Fragment(layout) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        viewState()
+
+        viewState()
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
@@ -66,23 +72,35 @@ abstract class BaseFragment(layout: Int) : Fragment(layout) {
             viewModel.status.collect { event ->
                 event.getContentIfNotHandled()?.let {
                     when (it) {
-                        ResponseState.Empty -> {
+                        is Status.Success -> {
+                            logMe("BaseFragment viewState Success")
+
+                            //hideDialog()
+                            progressUtil.hideProgress()
+                            if (it.message != "") {
+                                toastMy(it.message, true)
+                            }
                         }
-                        is ResponseState.Error -> {
+                        is Status.Error -> {
+                            //hideDialog()
+                            progressUtil.hideProgress()
+
+                            logMe("BaseFragment viewState Error")
                             if (it.message == null) {
-                                toastMy("connection error!", false)
+                                toastMy("connection error", false)
                             } else {
                                 if (it.message != "") {
                                     toastMy(it.message, false)
                                 }
                             }
                         }
-                        ResponseState.Loading -> {
+                        is Status.Loading -> {
+                            logMe("BaseFragment viewState Loading")
+                            //  showDialog()
+                            progressUtil.showProgress()
                         }
-                        is ResponseState.Success<*> -> {
-                            if (it.message != "") {
-                                toastMy(it.message)
-                            }
+                        else -> {
+                            logMe("BaseFragment viewState Empty")
                         }
                     }
                 }

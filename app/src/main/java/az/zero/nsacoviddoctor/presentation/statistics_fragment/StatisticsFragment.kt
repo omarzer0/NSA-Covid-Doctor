@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import az.zero.nsacoviddoctor.R
-import az.zero.nsacoviddoctor.common.Resource
 import az.zero.nsacoviddoctor.common.getLocation
-import az.zero.nsacoviddoctor.common.logMe
 import az.zero.nsacoviddoctor.common.setImageUsingGlide
 import az.zero.nsacoviddoctor.core.BaseFragment
 import az.zero.nsacoviddoctor.databinding.FragmentStatisticsBinding
@@ -33,20 +31,7 @@ class StatisticsFragment : BaseFragment(R.layout.fragment_statistics) {
 
         viewModel.getCovidInfo(x)
         viewModel.covidInfoLiveData.observe(viewLifecycleOwner) { covidInfo ->
-            when (covidInfo) {
-                is Resource.Error -> {
-                    logMe(covidInfo.message ?: "viewModel.covidPostsLiveData.observe")
-                    toastMy("Check internet connection")
-                    binding.spinKitPb.visibility = View.GONE
-                }
-                is Resource.Loading -> {
-                    binding.spinKitPb.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    setDataToViews(covidInfo.data)
-                    binding.spinKitPb.visibility = View.GONE
-                }
-            }
+            setDataToViews(covidInfo)
         }
 
         val listPie: List<PieEntry> = listOf(
