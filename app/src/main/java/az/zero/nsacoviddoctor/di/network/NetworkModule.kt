@@ -2,6 +2,7 @@ package az.zero.nsacoviddoctor.di.network
 
 import androidx.databinding.library.BuildConfig
 import az.zero.nsacoviddoctor.common.CORONA_BASE_URL
+import az.zero.nsacoviddoctor.common.timeOut
 import az.zero.nsacoviddoctor.data.data_source.network.CovidApi
 import az.zero.nsacoviddoctor.data.repository.CovidRepositoryImpl
 import az.zero.nsacoviddoctor.domain.repository.CovidRepository
@@ -26,17 +27,17 @@ object NetworkModule {
     @Provides
     @Singleton
     fun providesLoggingInterceptor(): HttpLoggingInterceptor =
-        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
 
 
     @Provides
     @Singleton
     fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
         OkHttpClient().newBuilder().apply {
-            callTimeout(35, TimeUnit.SECONDS)
-            connectTimeout(35, TimeUnit.SECONDS)
-            readTimeout(35, TimeUnit.SECONDS)
-            writeTimeout(35, TimeUnit.SECONDS)
+            callTimeout(timeOut, TimeUnit.SECONDS)
+            connectTimeout(timeOut, TimeUnit.SECONDS)
+            readTimeout(timeOut, TimeUnit.SECONDS)
+            writeTimeout(timeOut, TimeUnit.SECONDS)
             if (BuildConfig.DEBUG) addInterceptor(loggingInterceptor)
         }.build()
 

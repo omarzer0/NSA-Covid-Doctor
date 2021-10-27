@@ -1,14 +1,12 @@
 package az.zero.nsacoviddoctor.core
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import az.zero.nsacoviddoctor.R
 import az.zero.nsacoviddoctor.common.Event
-import az.zero.nsacoviddoctor.common.Resource
-import az.zero.nsacoviddoctor.domain.model.covid_info.CovidInfo
+import az.zero.nsacoviddoctor.common.Status
+import az.zero.nsacoviddoctor.common.logMe
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
@@ -24,90 +22,61 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
     @Inject
     lateinit var application: Application
 
-    private val _status = MutableStateFlow<Event<ResponseState>>(Event(ResponseState.Empty))
-    val status: StateFlow<Event<ResponseState>>
+    private val _status = MutableStateFlow<Event<Status>>(Event(Status.Empty))
+    val status: StateFlow<Event<Status>>
         get() = _status
-
-//    protected val _callState = MutableLiveData<Resource<*>>()
-//    val callState: LiveData<Resource<*>>
-//        get() = _callState
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         viewModelScope.launch(Dispatchers.Main) {
+
+            logMe("BaseViewModel exceptionHandler: ${throwable.localizedMessage}")
+
+            val throwableMessage = throwable.localizedMessage
+            val errorMessage =
+                if (throwableMessage != null && throwableMessage.contains("No address associated with hostname"))
+                    "Check your internet connection!"
+                else application.getString(R.string.error)
+
             _status.value =
-                Event(ResponseState.Error(application.getString(R.string.error)))
+                Event(Status.Error(errorMessage))
         }
     }
 
-    protected fun <T : BaseResponse> safeCallApi(
+    protected fun <T> safeCallApi(
         action: suspend () -> Response<T>,
         response: (T) -> Unit,
+        messageIfSuccess: String = "",
         showDialog: Boolean = true
     ) {
         viewModelScope.launch(exceptionHandler) {
             if (showDialog) {
-                _status.value = Event(ResponseState.Loading)
+                _status.value = Event(Status.Loading)
             }
-            val _response: Response<T> = action()
-            if (_response.isSuccessful) {
-                when (_response.body()!!.key) {
-                    "success" -> {
-                        response(_response.body()!!)
-                        _status.value = Event(
-                            ResponseState.Success(_response.body()!!.msg!!, _response.body()!!)
-                        )
-                    }
+            val callResponse: Response<T> = action()
+            if (callResponse.isSuccessful) {
+                val code = callResponse.code()
+                logMe("BaseViewModel safeCallApi - if: $code")
 
+                when (code) {
+                    200 -> {
+                        callResponse.body()?.let { response(it) }
+                        _status.value = Event(Status.Success(messageIfSuccess))
+                    }
+                    401 -> {
+
+                    }
+                    404 -> {
+
+                    }
                     else -> {
-                        _status.value = Event(ResponseState.Error(_response.body()!!.msg!!))
                     }
                 }
             } else {
-                _status.value = Event(ResponseState.Error(application.getString(R.string.error)))
+                logMe("BaseViewModel safeCallApi - else: ${callResponse.code()} ${callResponse.message()}")
+                _status.value = Event(Status.Error(application.getString(R.string.error)))
             }
         }
     }
 
-//    protected fun <T : BaseResponse> myApiCall(
-//        action: suspend () -> Response<T>,
-//        response: (T) -> Unit,
-//    ) {
-//        viewModelScope.launch {
-//            _callState.value = Resource.Loading()
-//            try {
-//                val call: Response<T> = action()
-//                if (call.isSuccessful){
-//                    call.body()?.let {
-//                        when (call) {
-//                            is Resource.Loading<*> -> {
-//                            }
-//                            is Resource.Error<*> -> _callState.value =Resource.Error(call.message ?: "Unknown error")
-//                            is Resource.Success<*> -> {
-//                                call.data
-//                                _callState.value = Resource.Success(it)
-//                            }
-//                        }
-//                    }
-//                }
-//            } catch (e: Exception) {
-//
-//            }
-//        }
-//    }
-
-    //fun getCovidInfo(country: String) = viewModelScope.launch {
-    //        covidInfoMutableLiveData.value = Resource.Loading()
-    //        try {
-    //            val x = repository.getCovidInfo(country)
-    //            if (x.isSuccessful) {
-    //                x.body()?.let { covidInfo ->
-    //                    covidInfoMutableLiveData.value = Resource.Success(covidInfo)
-    //                }
-    //            }
-    //        } catch (e: Exception) {
-    //            logMe("${e.localizedMessage}")
-    //            covidInfoMutableLiveData.value = Resource.Error(e.localizedMessage ?: "Unknown error")
-    //        }
-    //    }
 
 }
