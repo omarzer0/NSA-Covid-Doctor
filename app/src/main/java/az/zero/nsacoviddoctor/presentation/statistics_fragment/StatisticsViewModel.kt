@@ -17,20 +17,6 @@ class StatisticsViewModel @Inject constructor(
     val covidInfoLiveData: LiveData<CovidInfo>
         get() = covidInfoMutableLiveData
 
-//    fun getCovidInfo(country: String) = viewModelScope.launch {
-//        covidInfoMutableLiveData.value = Resource.Loading()
-//        try {
-//            val call = repository.getCovidInfo(country)
-//            if (call.isSuccessful) {
-//                call.body()?.let { covidInfo ->
-//                    covidInfoMutableLiveData.value = Resource.Success(covidInfo)
-//                }
-//            }
-//        } catch (e: Exception) {
-//            logMe("${e.localizedMessage}")
-//            covidInfoMutableLiveData.value = Resource.Error(e.localizedMessage?:"Unknown error")
-//        }
-//    }
 
     fun getCovidInfo(country: String) = safeCallApi(
         {

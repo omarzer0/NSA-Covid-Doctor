@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import az.zero.nsacoviddoctor.R
-import az.zero.nsacoviddoctor.common.Resource
-import az.zero.nsacoviddoctor.common.logMe
 import az.zero.nsacoviddoctor.core.BaseFragment
 import az.zero.nsacoviddoctor.databinding.FragmentHomeBinding
 import az.zero.nsacoviddoctor.presentation.adapter.post_adapter.HomePostAdapter
@@ -37,7 +35,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         }
 
         viewModel.covidPostsLiveData.observe(viewLifecycleOwner) { covidData ->
-            logMe("${covidData.data} \n\n ${covidData.msg}")
             homeAdapter.submitList(covidData.data)
         }
 

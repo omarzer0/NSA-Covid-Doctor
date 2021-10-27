@@ -1,6 +1,5 @@
 package az.zero.nsacoviddoctor.core
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,19 +10,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import az.zero.nsacoviddoctor.R
 import az.zero.nsacoviddoctor.common.IS_DEBUG
+import az.zero.nsacoviddoctor.common.ProgressUtil
 import az.zero.nsacoviddoctor.common.Status
 import az.zero.nsacoviddoctor.common.logMe
-import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 import gun0912.tedimagepicker.builder.TedImagePicker
 import kotlinx.coroutines.flow.collect
+import javax.inject.Inject
 
-@AndroidEntryPoint
 abstract class BaseFragment(layout: Int) : Fragment(layout) {
 
     abstract val viewModel: BaseViewModel
 
-    private var dialog: ProgressDialog? = null
+    @Inject
+    lateinit var progressUtil: ProgressUtil
 
 
     fun pickImage(action: (Uri) -> Unit) {
@@ -62,12 +62,7 @@ abstract class BaseFragment(layout: Int) : Fragment(layout) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dialog = ProgressDialog.show(
-            requireContext(), "Loading",
-            "Loading. Please wait...", true
-        )
 
-        hideDialog()
         viewState()
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -80,13 +75,16 @@ abstract class BaseFragment(layout: Int) : Fragment(layout) {
                         is Status.Success -> {
                             logMe("BaseFragment viewState Success")
 
-                            hideDialog()
+                            //hideDialog()
+                            progressUtil.hideProgress()
                             if (it.message != "") {
                                 toastMy(it.message, true)
                             }
                         }
                         is Status.Error -> {
-                            hideDialog()
+                            //hideDialog()
+                            progressUtil.hideProgress()
+
                             logMe("BaseFragment viewState Error")
                             if (it.message == null) {
                                 toastMy("connection error", false)
@@ -98,7 +96,8 @@ abstract class BaseFragment(layout: Int) : Fragment(layout) {
                         }
                         is Status.Loading -> {
                             logMe("BaseFragment viewState Loading")
-                            showDialog()
+                            //  showDialog()
+                            progressUtil.showProgress()
                         }
                         else -> {
                             logMe("BaseFragment viewState Empty")
@@ -107,15 +106,6 @@ abstract class BaseFragment(layout: Int) : Fragment(layout) {
                 }
             }
         }
-    }
-
-    private fun showDialog() {
-        dialog?.show()
-
-    }
-
-    private fun hideDialog() {
-        dialog?.hide()
     }
 
     fun openBrowser(url: String?) {

@@ -7,3 +7,4 @@ const val IS_DEBUG = true
 const val PREVENTION = "prevention"
 const val POST = "post"
 const val IMAGE_MULTI_PART_KEY = "img"
+const val timeOut = 35L

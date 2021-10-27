@@ -19,7 +19,7 @@ class HomeViewModel @Inject constructor(
     val covidPostsLiveData: LiveData<CovidData>
         get() = covidPostsMutableLiveData
 
-    fun getAllCovidPosts() = executeApi(
+    fun getAllCovidPosts() = safeCallApi(
         {
             repository.getAllCovidPosts(PREVENTION)
         }, {

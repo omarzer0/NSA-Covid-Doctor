@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import az.zero.nsacoviddoctor.R
-import az.zero.nsacoviddoctor.common.Resource
 import az.zero.nsacoviddoctor.common.getLocation
-import az.zero.nsacoviddoctor.common.logMe
 import az.zero.nsacoviddoctor.common.setImageUsingGlide
 import az.zero.nsacoviddoctor.core.BaseFragment
 import az.zero.nsacoviddoctor.databinding.FragmentStatisticsBinding

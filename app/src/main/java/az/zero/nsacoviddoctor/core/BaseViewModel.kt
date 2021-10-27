@@ -42,39 +42,6 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    protected fun <T : BaseResponse> executeApi(
-        action: suspend () -> Response<T>,
-        response: (T) -> Unit,
-        showDialog: Boolean = true
-    ) {
-        viewModelScope.launch(exceptionHandler) {
-            if (showDialog) {
-                _status.value = Event(Status.Loading)
-            }
-            val _response: Response<T> = action()
-            println("log_test $_response")
-            if (_response.isSuccessful) {
-                logMe("success11111111111111111111111111")
-                logMe("key = ${_response.body()!!.key}")
-
-                response(_response.body()!!)
-                _status.value =
-                    Event(Status.Success("Success"))
-            } else {
-                logMe("${_response.code()} ${_response.message()}", "TAG_FOR_API")
-
-                _status.value =
-                    Event(
-                        Status.Error(
-                            application.getString(R.string.error)
-                        )
-                    )
-
-            }
-        }
-    }
-
-
     protected fun <T> safeCallApi(
         action: suspend () -> Response<T>,
         response: (T) -> Unit,

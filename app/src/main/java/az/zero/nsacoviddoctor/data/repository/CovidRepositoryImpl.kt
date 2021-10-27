@@ -1,6 +1,5 @@
 package az.zero.nsacoviddoctor.data.repository
 
-import az.zero.nsacoviddoctor.common.Resource
 import az.zero.nsacoviddoctor.data.data_source.network.CovidApi
 import az.zero.nsacoviddoctor.domain.model.ai_model_data.AIModelData
 import az.zero.nsacoviddoctor.domain.model.covid_info.CovidInfo
