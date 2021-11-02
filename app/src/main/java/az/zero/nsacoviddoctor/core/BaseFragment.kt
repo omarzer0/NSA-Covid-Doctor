@@ -25,7 +25,6 @@ abstract class BaseFragment(layout: Int) : Fragment(layout) {
     @Inject
     lateinit var progressUtil: ProgressUtil
 
-
     fun pickImage(action: (Uri) -> Unit) {
         TedImagePicker.with(requireContext())
             .title("Choose image")
@@ -64,6 +63,7 @@ abstract class BaseFragment(layout: Int) : Fragment(layout) {
     ): View? {
 
         viewState()
+//        viewStateWithLiveData()
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
@@ -103,6 +103,43 @@ abstract class BaseFragment(layout: Int) : Fragment(layout) {
                             logMe("BaseFragment viewState Empty")
                         }
                     }
+                }
+            }
+        }
+    }
+
+    private fun viewStateWithLiveData() {
+        viewModel.stateLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                is Status.Success -> {
+                    logMe("BaseFragment viewState Success")
+
+                    //hideDialog()
+                    progressUtil.hideProgress()
+                    if (it.message != "") {
+                        toastMy(it.message, true)
+                    }
+                }
+                is Status.Error -> {
+                    //hideDialog()
+                    progressUtil.hideProgress()
+
+                    logMe("BaseFragment viewState Error")
+                    if (it.message == null) {
+                        toastMy("connection error", false)
+                    } else {
+                        if (it.message != "") {
+                            toastMy(it.message, false)
+                        }
+                    }
+                }
+                is Status.Loading -> {
+                    logMe("BaseFragment viewState Loading")
+                    //  showDialog()
+                    progressUtil.showProgress()
+                }
+                else -> {
+                    logMe("BaseFragment viewState Empty")
                 }
             }
         }

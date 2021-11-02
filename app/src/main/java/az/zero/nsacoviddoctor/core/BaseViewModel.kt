@@ -1,6 +1,7 @@
 package az.zero.nsacoviddoctor.core
 
 import android.app.Application
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import az.zero.nsacoviddoctor.R
@@ -10,6 +11,7 @@ import az.zero.nsacoviddoctor.common.logMe
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -78,5 +80,58 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    private val _stateLiveData = MutableLiveData<Status>()
+    val stateLiveData = _stateLiveData
+
+    private val exceptionHandler2 = CoroutineExceptionHandler { _, throwable ->
+        viewModelScope.launch(Dispatchers.Main) {
+
+            logMe("BaseViewModel exceptionHandler: ${throwable.localizedMessage}")
+
+            val throwableMessage = throwable.localizedMessage
+            val errorMessage =
+                if (throwableMessage != null && throwableMessage.contains("No address associated with hostname"))
+                    "Check your internet connection!"
+                else application.getString(R.string.error)
+
+            _stateLiveData.value = Status.Error(errorMessage)
+        }
+    }
+
+    protected fun <T> safeCallApiWithLiveData(
+        action: suspend () -> Response<T>,
+        response: (T) -> Unit,
+        messageIfSuccess: String = "",
+        showDialog: Boolean = true
+    ) {
+        viewModelScope.launch(exceptionHandler2) {
+            if (showDialog) {
+                _stateLiveData.value = Status.Loading
+            }
+            val callResponse: Response<T> = action()
+            if (callResponse.isSuccessful) {
+                val code = callResponse.code()
+                logMe("BaseViewModel safeCallApi - if: $code")
+
+                when (code) {
+                    200 -> {
+                        callResponse.body()?.let { response(it) }
+                        _stateLiveData.value = Status.Success(messageIfSuccess)
+                    }
+                    401 -> {
+
+                    }
+                    404 -> {
+
+                    }
+                    else -> {
+                    }
+                }
+            } else {
+                logMe("BaseViewModel safeCallApi - else: ${callResponse.code()} ${callResponse.message()}")
+                _stateLiveData.value = Status.Error(application.getString(R.string.error))
+            }
+        }
+    }
 
 }

@@ -5,6 +5,7 @@ dependencyResolutionManagement {
         mavenCentral()
         maven { url "https://jitpack.io" }
         maven { url 'https://www.jitpack.io' }
+        maven { url "https://oss.jfrog.org/libs-snapshot" }
     }
 }
 rootProject.name = "NSA Covid Doctor"
